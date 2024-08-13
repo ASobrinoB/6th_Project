@@ -3,12 +3,13 @@ const auth = require('../middleware/authorization.js');
 const { registerUser,
         loginUser,
         verifyTokenUser,
-        updateUser } = require('../controllers/userController.js');
+        updateUser
+      } = require('../controllers/userController.js');
 
 const userRouter = express.Router();
 
 userRouter.post('/register', registerUser);
-userRouter.get('/login', loginUser);
+userRouter.post('/login', loginUser);
 userRouter.get('/verifytoken', auth, verifyTokenUser);
 userRouter.put('/update', updateUser);
 

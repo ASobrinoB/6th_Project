@@ -3,7 +3,8 @@ const { createProduct,
         readAllProducts,
         readProductById,
         updateProductById,
-        deleteProductById } = require('../controllers/productController.js');
+        deleteProductById
+      } = require('../controllers/productController.js');
 
 const productRouter = express.Router();
 

@@ -1,66 +1,96 @@
-const Product = require('../models/Product');
+const Product = require('../models/productModel.js');
 
-app.post("/crear-Product", async(req, res) => {
-    const { nombre, precio } = req.body
+exports.createProduct = async (req, res) => {
+	const { sku, description, price } = req.body    
+
+	try {
+        let foundProduct = await Product.findOne({ sku })
+
+        if (foundProduct)
+        {
+        return res.status(400).json( { msg: "producto ya existe" } )
+        }
+
+        const respuestaDB = await Product.create ({ sku, description, price })
+
+		return res.json(respuestaDB)
+        }
+        catch (error)
+        {
+        return res.status(400).json( { msg: error } )
+        }
+};
+
+exports.readAllProducts = async (req, res) => {
     try {
-        const nuevaProduct = await Product.create({ nombre, precio })
-        res.json(nuevaProduct)
-    } catch (error) {
-        res.status(500).json({
-            msg: "Hubo un error creando la Product",
-            error: error.message
-        })
-    }
-})
+        const products = await Product.find({});
+        res.json({products})
+        } 
+        catch (error)
+        {
+        res.status(500).json({ msg: "problemas para extraer los productos", error })
+        }
+};
 
-app.put("/actualizar-Product", async (req, res) => {
-    const { id, nombre, precio } = req.body
+exports.readProductById = async (req, res) => {
+    const id = req.params.id;
+
     try {
-        const actualizacionProduct = 
-	        await Product.findByIdAndUpdate(id, { nombre, precio }, { new: true })
-        res.json(actualizacionProduct)
-    } catch (error) {       
-        res.status(500).json({
-            msg: "Hubo un error actualizando la Product",
-            error
-        })
-    }
-})
+        let foundProduct = await Product.findById(id);
 
-app.delete("/borrar-Product", async (req, res) => {
-    const { id } = req.body
+        if (!foundProduct)
+        {
+        return res.status(400).json({ msg: "id del producto no existe" });
+        }
+        res.json({ foundProduct })
+        } 
+        catch (error)
+        {
+        res.status(500).json({ msg: "producto no existe", error })
+        }
+};
+
+exports.updateProductById = async (req, res) => {
+    const id = req.params.id;
+
     try {
-        const ProductBorrada = await Product.findByIdAndDelete({_id: id })
-        res.json(ProductBorrada)
-    } catch (error) {
-        res.status(500).json({
-            msg: "Hubo un error eliminando la Product",
-            error
-        })
-    }
-})
+        let foundProduct = await Product.findById(id);
 
+        if (!foundProduct)
+        {
+        return res.status(400).json({ msg: "id del producto no existe" });
+        }
 
-exports.getAllGuitars = async (req, res) => {
+        const updateData = { sku: sku || foundProduct.sku, description: description || foundProduct.description, price: price || foundProduct.price };
+
+        const updateProduct = await Product.findByIdAndUpdate(id, updateData, { new: true });
+
+        return res.json(updateProduct);
+
+        }
+        catch (error)
+        {
+        return res.status(400).json({ msg: error.message });
+        }
+};
+
+exports.deleteProductById = async (req, res) => {
+    const id = req.params.id;
+
     try {
-        const Products = await Product.find({});
-        res.json({Products}) 
-    } catch (error) {
-        res.status(500).json({
-            msg: "Hubo un error al intentar obtener las Products",
-            error
-        })
-    }
-}
+        let foundProduct = await Product.findById(id);
 
-exports.getAllUsers = async (req, res) => {
-    try {
-        const users = await Usuario.find({});
-        res.json({users}) 
-    } catch (error) {
-        res.status(500).json({
-            msg: "Hubo un error al intentar obtener los usuarios",
-            error
-        })
-    }
-}
+        if (!foundProduct)
+        {
+        return res.status(400).json({ msg: "id del producto no existe" });
+        }
+
+        const ProductBorrado = await Product.findByIdAndDelete({_id: id })
+
+        res.json(ProductBorrado)
+        }
+        catch (error)
+        {
+        return res.status(400).json({ msg: error.message });
+        }
+};

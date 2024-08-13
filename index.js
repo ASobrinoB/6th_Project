@@ -16,5 +16,5 @@ app.use('/api/product', productRouter);
 
 app.listen(
     process.env.PORT,
-    () => console.log('El servidor esta escuchando en el puerto ' + process.env.PORT)
+    () => console.log('El servidor esta escuchando en el puerto -> ' + process.env.PORT)
 );

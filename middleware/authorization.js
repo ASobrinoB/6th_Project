@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
 	let { authorization } = req.headers;
 	if (!authorization) {
-		return res.status(401).json({ msg: "Acceso no autorizado" })
+		return res.status(401).json({ msg: "ERROR: Acceso no autorizado" })
 	}
 	try {
 		let [type, token] = authorization.split(" ")
@@ -12,10 +12,10 @@ module.exports = (req, res, next) => {
 			req.user = openToken.user
 			next()
 		} else {
-			return res.status(401).json({ msg: "Acceso no autorizado" })
+			return res.status(401).json({ msg: "ERROR: Acceso no autorizado" })
 		}
 
 	} catch (error) {
-		res.json({ msg: "Acceso no autorizado", error })
+		res.json({ msg: "ERROR: Acceso no autorizado", error })
 	}
 }
