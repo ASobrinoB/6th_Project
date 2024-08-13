@@ -1,14 +1,15 @@
 const express = require('express');
-const auth = require('../middleware/authorization');
-const { createUser, login, verifyToken, getAllUsers } = require('../controllers/userController');
-
+const auth = require('../middleware/authorization.js');
+const { registerUser,
+        loginUser,
+        verifyTokenUser,
+        updateUser } = require('../controllers/userController.js');
 
 const userRouter = express.Router();
 
-userRouter.post('/register', createUser); //http://localhost:3000/api/user/register
-userRouter.post('/login', login); //http://localhost:3000/api/user/login
-userRouter.get('/verifytoken', auth, verifyToken); //http://localhost:3000/api/user/verifytoken
-userRouter.get('/getAll', getAllUsers)
-
+userRouter.post('/register', registerUser);
+userRouter.get('/login', loginUser);
+userRouter.get('/verifytoken', auth, verifyTokenUser);
+userRouter.put('/update', updateUser);
 
 module.exports = userRouter;
