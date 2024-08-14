@@ -1,5 +1,38 @@
 const Product = require('../models/productModel.js');
 
+/**
+ * @swagger
+ * /api/product/create:
+ *   post:
+ *     summary: Crea un nuevo producto
+ *     tags: [Product]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sku:
+ *                 type: string
+ *                 example: "SKU12345"
+ *               description:
+ *                 type: string
+ *                 example: "Descripción del producto"
+ *               price:
+ *                 type: number
+ *                 example: 99.99
+ *     responses:
+ *       200:
+ *         description: Producto creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '../models/productModel.js'
+ *       400:
+ *         description: Error al crear el producto
+ */
+
 exports.createProduct = async (req, res) => {
 	const { sku, description, price } = req.body    
 
@@ -21,6 +54,28 @@ exports.createProduct = async (req, res) => {
         }
 };
 
+/**
+ * @swagger
+ * /api/product/readall:
+ *   get:
+ *     summary: Obtiene todos los productos
+ *     tags: [Product]
+ *     responses:
+ *       200:
+ *         description: Lista de productos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 products:
+ *                   type: array
+ *                   items:
+ *                     $ref: '../models/productModel.js'
+ *       500:
+ *         description: Error al obtener los productos
+ */
+
 exports.readAllProducts = async (req, res) => {
     try {
         const products = await Product.find({});
@@ -31,6 +86,29 @@ exports.readAllProducts = async (req, res) => {
         res.status(500).json({ msg: "problemas para extraer los productos", error })
         }
 };
+
+/**
+ * @swagger
+ * /api/product/readone/{id}:
+ *   get:
+ *     summary: Obtiene un producto por ID
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Producto encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '../models/productModel.js'
+ *       400:
+ *         description: Producto no encontrado
+ */
 
 exports.readProductById = async (req, res) => {
     const id = req.params.id;
@@ -49,6 +127,45 @@ exports.readProductById = async (req, res) => {
         res.status(500).json({ msg: "producto no existe", error })
         }
 };
+
+/**
+ * @swagger
+ * /api/product/update/{id}:
+ *   put:
+ *     summary: Actualiza un producto por ID
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sku:
+ *                 type: string
+ *                 example: "SKU12345"
+ *               description:
+ *                 type: string
+ *                 example: "Nueva descripción del producto"
+ *               price:
+ *                 type: number
+ *                 example: 79.99
+ *     responses:
+ *       200:
+ *         description: Producto actualizado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '../models/productModel.js'
+ *       400:
+ *         description: Error al actualizar el producto
+ */
 
 exports.updateProductById = async (req, res) => {
     const id = req.params.id;
@@ -74,6 +191,29 @@ exports.updateProductById = async (req, res) => {
         return res.status(400).json({ msg: error.message });
         }
 };
+
+/**
+ * @swagger
+ * /api/product/delete/{id}:
+ *   delete:
+ *     summary: Elimina un producto por ID
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Producto eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '../models/productModel.js'
+ *       400:
+ *         description: Error al eliminar el producto
+ */
 
 exports.deleteProductById = async (req, res) => {
     const id = req.params.id;
