@@ -114,6 +114,10 @@ Usa esta lista para saber los requisitos mínimos del proyecto:
 ### DESPLIEGUE (OPCIONAL)
 - [ ] Crear una URL de producción para este proyecto, a través de [render.com](https://render.com)
 
+`https://sixth-project.onrender.com`
+
+![Image](./images/render.png) 
+
 ****
 
 ## 3. Criterios de evaluación
