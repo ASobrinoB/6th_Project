@@ -28,7 +28,8 @@ const Product = require('../models/productModel.js');
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/productModel.js'
+ *                      type: object
+ *                      $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error al crear el producto
  */
@@ -71,7 +72,7 @@ exports.createProduct = async (req, res) => {
  *                 products:
  *                   type: array
  *                   items:
- *                     $ref: '../models/productModel.js'
+ *                      $ref: '#/components/schemas/Product'
  *       500:
  *         description: Error al obtener los productos
  */
@@ -105,7 +106,8 @@ exports.readAllProducts = async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/productModel.js'
+ *                       type: object
+ *                      $ref: '#/components/schemas/Product'
  *       400:
  *         description: Producto no encontrado
  */
@@ -162,7 +164,8 @@ exports.readProductById = async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/productModel.js'
+ *                      type: object
+ *                      $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error al actualizar el producto
  */
@@ -210,7 +213,8 @@ exports.updateProductById = async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/productModel.js'
+ *                       type: object
+  *                      $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error al eliminar el producto
  */

@@ -23,7 +23,7 @@ const swaggerSpec = {
             },
         ],
     },
-    apis: [`${path.join("", "./routes/*.js")}`],
+    apis: [`${path.join("", "/users/alejandrosobrino/onedrive/udd/6th_Project/routes/*.js")}`],
 };
 
 

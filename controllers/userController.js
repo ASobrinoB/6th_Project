@@ -30,7 +30,8 @@ const jwt = require('jsonwebtoken');
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/userModel.js'
+ *                      type: object
+ *                      $ref: '#/components/schemas/User'
  *       400:
  *         description: Error al registrar el usuario
  */
@@ -138,7 +139,8 @@ exports.loginUser = async(req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/userModel.js'
+ *                      type: object
+ *                      $ref: '#/components/schemas/User'
  *       500:
  *         description: Error al verificar el token
  */
@@ -187,7 +189,8 @@ exports.verifyTokenUser = async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../models/userModel.js'
+ *                       type: object
+ *                      $ref: '#/components/schemas/User'
  *       400:
  *         description: Error al actualizar el usuario
  */
