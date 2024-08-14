@@ -86,6 +86,13 @@ Usa esta lista para saber los requisitos mínimos del proyecto:
  
 ### APLICACIÓN DE SERVICIOS CRUD
 
+`.env`
+
+`MONGODB_URI=mongodb+srv://admin:admin@cluster0.l5r7v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+
+`SECRET=UCAMP`
+
+
 - [ ] Implementar autenticación y autorización en tu aplicación.
 - [ ] Crear dos modelos, uno para el Usuario y otro para el Producto.
 - [ ] Implementar operaciones CRUD para el modelo del Producto.
